@@ -11,25 +11,4 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('app');
-});
-Route::post('/',function() {
-	$file = Input::file('file');
-	if(strpos($file->getMimeType(), 'image')) {
-		$type = Snapchat::MEDIA_IMAGE;
-	}
-	elseif(strpos($file->getMimeType(), 'video')) {
-		$type = Snapchat::MEDIA_VIDEO;
-	}
-	else {
-		return Redirect::to('/');
-	}
-	$snapchat = new Snapchat(Input::get('username'), Input::get('password')); 
-	$id = $snapchat->upload(
-		$type,
-		file_get_contents($file->getRealPath())
-		);
-	$snapchat->send($id, explode(',', Input::get('usernames')), 8);
-});
+Route::controller('/','AppController');

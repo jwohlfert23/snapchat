@@ -19,14 +19,24 @@
   <body>
   	<div class="container">
   		<h1 class="text-center" style="margin: 20px 0">Send Snapchat</h1>
-  		{{Form::open(['class'=>'form-horizontal'])}}
+      @if(Session::has('error'))
+      <div class="alert alert-danger">
+        {{Session::get('error',"Error!")}}
+      </div>
+      @endif
+      @if(Session::has('success'))
+      <div class="alert alert-success">
+        {{Session::get('success',"Success!")}}
+      </div>
+      @endif
+  		{{Form::open(['class'=>'form-horizontal','files'=>true])}}
   		<div class="form-group">
   			<label class="control-label col-md-2">Login</label>
   			<div class="col-md-5">
   				<input class="form-control" placeholder="Username" name="username">
   			</div>
   			<div class="col-md-5">
-  				<input class="form-control" placeholder="Password" name="password">
+  				<input class="form-control" type="password" placeholder="Password" name="password">
   			</div>
   		</div>
   		<div class="form-group">
@@ -43,7 +53,7 @@
   				<input class="form-control" type="file" name="file">
   			</div>
   		</div>
-  		<button type="submit" class="btn btn-primary col-md-offset-2">Send</button>
+  		<input type="submit" class="btn btn-primary col-md-offset-2" value="Send">
   		{{Form::close()}}
 
   	</div>
